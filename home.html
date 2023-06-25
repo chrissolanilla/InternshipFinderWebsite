@@ -6,8 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <style> 
+        h1{
+          color: #C4A484
+        }
+        
         p{
-        color: aquamarine;
+        color: #FFB6C1;
         }
 
         body {
@@ -20,7 +24,12 @@
    <h1>Need an internship?</h1> 
    <h2>Register today to apply hundreds of companies in just minutes</h2>
     <h3>Start your Internship Journey Today!</h3>
-    <button>Sign Up Today</button>
+    <button id="redirectButton">Sign Up Today</button>
     <p>WOAH</p>
+    <script>
+      document.getElementById("redirectButton").addEventListener("click", function() {
+        window.location.href = "index.html";
+      });
+    </script>
   </body>
 </html>
