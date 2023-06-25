@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>HTML 5 Boilerplate</title>
+        <!-- Include Petite Vue -->
+        <script src="https://unpkg.com/petite-vue" defer init></script>
+        <!-- <link rel="stylesheet" href="style.css"> nah actually we doing bootstrap lol--->
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <!-- Simple style tag to center text and divs-->
+        <style>
+            body {
+                text-align: center;
+            }
+            .center-div {
+                display: inline-block;
+                margin: 0 auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Easy Intern Website</h1>
+        <!--making a form with petite vue-->
+        <div class="center-div" v-scope="{ firstName: '', lastName: '', email: '', areaCode:'', phoneNumber:'', submitForm: submitForm }">
+            <h2>Register</h2>
+            <form @submit.prevent="submitForm">
+                <div class="form-group">
+                    <input v-model="firstName" name="firstName" id="firstName" placeholder="First name*" class="form-control" required>
+                    <input v-model="lastName" name= "lastname" id= "lastName" placeholder="Last name*" class="form-control" required>
+                    <input v-model="email" name="email" id="email" placeholder="Email*" class="form-control" required>
+                    <input v-model="areaCode" name="areaCode" id="areaCode" placeholder="Country Code*" class="form-control" required>
+                    <input v-model="phoneNumber" name="phoneNumber" id="phoneNumber" placeholder="Phone Number*" class="form-control" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Register</button>
+            </form>
+        </div>
+       <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+        <!--firebase config scripts-->
+        <script>
+            var firebaseConfig = {
+                apiKey: "AIzaSyD3uOK9dhNN_yV9Src3FHQoKFPIuqxzu8g",
+                authDomain: "easy-intern.firebaseapp.com",
+                projectId: "easy-intern",
+                storageBucket: "easy-intern.appspot.com",
+                messagingSenderId: "1032116527504",
+                appId: "1:1032116527504:web:7bb7fab99a11d5fae29315",
+                measurementId: "G-XMR4VMND5T"
+            };
+            // Initialize Firebase
+            const firebaseApp = firebase.initializeApp(firebaseConfig);
+            const db = firebaseApp.firestore();
+            const auth = firebaseApp.auth();
+        </script>
+       <!--Functionality for the form-->
+        <script>
+            const submitForm = function() {
+                console.log(this.firstName, this.lastName, this.email, this.areaCode, this.phoneNumber);
+            
+                // Get a reference to the database service
+                // var database = firebase.firestore();
+                
+                // Create a new user in your 'users' collection
+                db.collection("users").add({
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    email: this.email,
+                    areaCode: this.areaCode,
+                    phoneNumber: this.phoneNumber
+                })
+                .then((docRef) => {
+                    console.log("Document written with ID: ", docRef.id);
+                });
+            };
+        </script>
+        <!-- add this just before body closing tag-->
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
+    </body>
+</html>
