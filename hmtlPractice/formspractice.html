@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Forms</title>
+    </head>
+    <body>
+        <form action="/myapi" method="POST">
+            <label for="username">Username</label>
+            <input 
+            name="username"
+            id="username"
+            type="text" 
+            placeholder="required"
+            required>
+            <br>
+            <label for="password">Password</label>
+            <input 
+            name="password" 
+            id="password" 
+            type="password" 
+            placeholder="Super Secrete Text"
+            minlength="6"
+            required>
+
+            <input type="date">
+            <input type="checkbox">
+            <fieldset>
+                <legend>Choose your Animal</legend>
+                <label for="dog">Dog</label>
+                <input type="radio" name="animal" value="dog">
+                <label for="cat">Cat</label>
+                <input type="radio" name="animal" value="cat">
+                <label for="horse">Horse</label>
+                <input type="radio" name="animal" value="horse">
+            </fieldset>
+            <legend>Choose your Tree</legend>
+            <label for="pine">Pine Tree</label>
+            <input type="radio" name="tree" value="pine">
+            <label for="redWood">Red Wood</label>
+            <input type="radio" name="tree" value="redWood">
+            <!--Both work :O -->
+            <input type="submit">
+            <button>Submit</button>
+        </form>
+    </body>
+</html>

@@ -1,0 +1,26 @@
+h1, h2 {
+    color:red;
+
+}
+
+.red{
+    color: blue;
+}
+#red{
+    color:brown;
+}
+/*this only affects the color for zombo.com*/
+a[href^="https:zombo.com"]{
+    color:green;
+}
+/*you can also use * to select every element!!!!*/
+
+/* gets all paragraphs in footer tags*/
+footer p{
+    color:aqua;
+}
+/*get any tag that is an adjacent sibling of h2 p */
+h2 ~ p{
+    color:blueviolet;
+}
+

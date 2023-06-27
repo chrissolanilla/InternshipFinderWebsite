@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
+        <link rel="icon" href="/art/ezFavi.png">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -24,7 +25,7 @@
     <!--Start of body, putting nav bar first-->
     <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="home.html">
-          <img src="EasyInternLogoSVG.svg" alt="Easy Intern" height="30" class="d-incline-block align-top">
+          <img src="/art/ezSVG.svg" alt="Easy Intern" height="30" class="d-incline-block align-top">
           </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
@@ -48,11 +49,11 @@
             <h2>Register</h2>
             <form @submit.prevent="submitForm">
                 <div class="form-group">
-                    <input v-model="firstName" name="firstName" id="firstName" placeholder="First name*" class="form-control" required>
-                    <input v-model="lastName" name= "lastname" id= "lastName" placeholder="Last name*" class="form-control" required>
-                    <input v-model="email" name="email" id="email" placeholder="Email*" class="form-control" required>
-                    <input v-model="areaCode" name="areaCode" id="areaCode" placeholder="Country Code*" class="form-control" required>
-                    <input v-model="phoneNumber" name="phoneNumber" id="phoneNumber" placeholder="Phone Number*" class="form-control" required>
+                    <input type="text" v-model="firstName" name="firstName" id="firstName" placeholder="First name*" class="form-control" required>
+                    <input type="text" v-model="lastName" name= "lastname" id= "lastName" placeholder="Last name*" class="form-control" required>
+                    <input type="email" v-model="email" name="email" id="email" placeholder="Email*" class="form-control" required>
+                    <input type="number" v-model="areaCode" name="areaCode" id="areaCode" placeholder="Country Code*" class="form-control" required>
+                    <input type="tel" v-model="phoneNumber" name="phoneNumber" id="phoneNumber" placeholder="Phone Number*" class="form-control" required>
                 </div>
                 <button type="submit" class="btn btn-primary" style="background-color: black; color: white;">Register</button>
             </form>
@@ -79,6 +80,7 @@
         </script>
        <!--Functionality for the form-->
         <script>
+            
             const submitForm = function() {
                 console.log(this.firstName, this.lastName, this.email, this.areaCode, this.phoneNumber);
             
