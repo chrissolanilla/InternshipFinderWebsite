@@ -92,6 +92,71 @@
      <div>
       <h2>Fields We Work With Companys In:</h2>
      </div>
+     <!--Some silly bouncy text that changes colors like a dvd-->
+     <div id="container">
+      <div id="movingText">This text will bounce</div>
+    </div>
+    <style>
+      #container {
+        position: relative; /* Allow for absolute positioning within the container */
+        width: 600px; /* Define the width of the container */
+        height: 600px; /* Define the height of the container */
+        border: 2px solid black; /* Add a border to the container */
+        margin: 0 auto; /* Center the container */
+        overflow:hidden; /* Hide content that goes outside the container */
+    }
+    
+      #movingText {
+      position: absolute;
+      color: red;
+      white-space: nowrap;
+    } 
+    
+    </style>
+    <script>
+      let text = document.querySelector("#movingText");
+      let container = document.querySelector("#container");
+      
+      let x = 0, y = 0;
+      let dx = 2, dy = 2;
+      
+      function randomColor() {
+        let colors = ["red", "blue", "green", "yellow", "orange", "purple"];
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+      
+      function moveText() {
+        // Move these lines inside the function to update the dimensions each iteration
+        let textWidth = text.offsetWidth;
+        let textHeight = text.offsetHeight;
+        let containerWidth = container.offsetWidth;
+        let containerHeight = container.offsetHeight;
+    
+        if (x + dx > containerWidth - textWidth || x + dx < 0) {
+          dx = -dx;
+        }
+        if (y + dy > containerHeight - textHeight || y + dy < 0) {
+          dy = -dy;
+        }
+    
+        // If the text is in the corner, change the color
+        if ((x === 0 && y === 0) || 
+            (x >= containerWidth - textWidth && y >= containerHeight - textHeight)) {
+          text.style.color = randomColor();
+        }
+    
+        x += dx;
+        y += dy;
+    
+        text.style.left = x + "px";
+        text.style.top = y + "px";
+      }
+
+      
+      setInterval(moveText, 10);
+      
+    </script>
+    <!--end of silly stuff-->
 
   </body>
 </html>
