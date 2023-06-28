@@ -55,6 +55,9 @@
           <li class="nav-item">
             <a class="nav-link" href="index.html">Register</a>
           </li>
+          <li class="nav-item">
+            <a class="nav-link" href="login.html">Login</a>
+          </li>
           <!-- Add more links as needed -->
         </ul>
       </div>
@@ -94,7 +97,9 @@
      </div>
      <!--Some silly bouncy text that changes colors like a dvd-->
      <div id="container">
-      <div id="movingText">This text will bounce</div>
+      <div id="movingText1">Bad Dragon</div>
+      <div id="movingText2">Adam & Eve</div>
+      <div id="movingText3">Moby Huge Near Me</div>
     </div>
     <style>
       #container {
@@ -106,56 +111,97 @@
         overflow:hidden; /* Hide content that goes outside the container */
     }
     
-      #movingText {
+      #movingText1 {
       position: absolute;
       color: red;
+      white-space: nowrap;
+    }
+    
+      #movingText2 {
+      position: absolute;
+      color: blue;
+      white-space: nowrap;
+    } 
+
+    #movingText3 {
+      position: absolute;
+      color: green;
       white-space: nowrap;
     } 
     
     </style>
     <script>
-      let text = document.querySelector("#movingText");
-      let container = document.querySelector("#container");
-      
-      let x = 0, y = 0;
-      let dx = 2, dy = 2;
-      
+      const movingTexts = [
+        {
+          element: document.querySelector("#movingText1"),
+          x: 0,
+          y: 0,
+          dx: 2,
+          dy: 2,
+        },
+        {
+          element: document.querySelector("#movingText2"),
+          x: 100,
+          y: 100,
+          dx: 3,
+          dy: 3,
+        },
+        {
+          element: document.querySelector("#movingText3"),
+          x: 200,
+          y: 200,
+          dx: 4,
+          dy: 4,
+        },
+      ];
+      const container = document.querySelector("#container");
+    
       function randomColor() {
         let colors = ["red", "blue", "green", "yellow", "orange", "purple"];
         return colors[Math.floor(Math.random() * colors.length)];
       }
-      
+    
       function moveText() {
-        // Move these lines inside the function to update the dimensions each iteration
-        let textWidth = text.offsetWidth;
-        let textHeight = text.offsetHeight;
-        let containerWidth = container.offsetWidth;
-        let containerHeight = container.offsetHeight;
+        const containerWidth = container.offsetWidth;
+        const containerHeight = container.offsetHeight;
     
-        if (x + dx > containerWidth - textWidth || x + dx < 0) {
-          dx = -dx;
-        }
-        if (y + dy > containerHeight - textHeight || y + dy < 0) {
-          dy = -dy;
-        }
+        movingTexts.forEach((movingText) => {
+          const textWidth = movingText.element.offsetWidth;
+          const textHeight = movingText.element.offsetHeight;
     
-        // If the text is in the corner, change the color
-        if ((x === 0 && y === 0) || 
-            (x >= containerWidth - textWidth && y >= containerHeight - textHeight)) {
-          text.style.color = randomColor();
-        }
+          if (
+            movingText.x + movingText.dx > containerWidth - textWidth ||
+            movingText.x + movingText.dx < 0
+          ) {
+            movingText.dx = -movingText.dx;
+          }
+          if (
+            movingText.y + movingText.dy > containerHeight - textHeight ||
+            movingText.y + movingText.dy < 0
+          ) {
+            movingText.dy = -movingText.dy;
+          }
     
-        x += dx;
-        y += dy;
+          // If the text is in the corner, change the color
+          if (
+            (movingText.x === 0 && movingText.y === 0) ||
+            (movingText.x >= containerWidth - textWidth &&
+              movingText.y >= containerHeight - textHeight)
+          ) {
+            movingText.element.style.color = randomColor();
+          }
     
-        text.style.left = x + "px";
-        text.style.top = y + "px";
+          movingText.x += movingText.dx;
+          movingText.y += movingText.dy;
+    
+          movingText.element.style.left = movingText.x + "px";
+          movingText.element.style.top = movingText.y + "px";
+        });
       }
-
-      
+    
       setInterval(moveText, 10);
-      
     </script>
+    
     <!--end of silly stuff-->
 
   </body>

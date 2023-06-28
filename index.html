@@ -38,6 +38,9 @@
             <li class="nav-item">
               <a class="nav-link" href="index.html">Register</a>
             </li>
+            <li class="nav-item">
+                <a class="nav-link" href="login.html">Login</a>
+            </li>
             <!-- Add more links as needed -->
           </ul>
         </div>
@@ -45,13 +48,14 @@
       <!--if we make a change to this nav bar we have to copy and paste it to all other pages, this is what frameworks like react and vue solve-->
         <h1>Easy Intern Website</h1>
         <!--making a form with petite vue-->
-        <div class="center-div" v-scope="{ firstName: '', lastName: '', email: '', areaCode:'', phoneNumber:'', submitForm: submitForm }">
+        <div class="center-div" v-scope="{ firstName: '', lastName: '', email: '', password: '', areaCode:'', phoneNumber:'', submitForm: submitForm}">
             <h2>Register</h2>
             <form @submit.prevent="submitForm">
                 <div class="form-group">
                     <input type="text" v-model="firstName" name="firstName" id="firstName" placeholder="First name*" class="form-control" required>
                     <input type="text" v-model="lastName" name= "lastname" id= "lastName" placeholder="Last name*" class="form-control" required>
                     <input type="email" v-model="email" name="email" id="email" placeholder="Email*" class="form-control" required>
+                    <input type="password" v-model="password" name="password" id="password" placeholder="Password*" class="form-control" required>
                     <input type="number" v-model="areaCode" name="areaCode" id="areaCode" placeholder="Country Code*" class="form-control" required>
                     <input type="tel" v-model="phoneNumber" name="phoneNumber" id="phoneNumber" placeholder="Phone Number*" class="form-control" required>
                 </div>
@@ -80,25 +84,37 @@
         </script>
        <!--Functionality for the form-->
         <script>
-            
             const submitForm = function() {
-                console.log(this.firstName, this.lastName, this.email, this.areaCode, this.phoneNumber);
-            
-                // Get a reference to the database service
-                // var database = firebase.firestore();
-                
+                console.log(this.firstName, this.lastName, this.email, this.password, this.areaCode, this.phoneNumber);
                 // Create a new user in your 'users' collection
-                db.collection("users").add({
-                    firstName: this.firstName,
-                    lastName: this.lastName,
-                    email: this.email,
-                    areaCode: this.areaCode,
-                    phoneNumber: this.phoneNumber
+            
+                // create account with auth app
+                auth.createUserWithEmailAndPassword(this.email, this.password)
+                .then(userCredential => {
+                    // Signed in 
+                    var user = userCredential.user;
+                    db.collection("users").add({
+                        firstName: this.firstName,
+                        lastName: this.lastName,
+                        email: this.email,
+                        areaCode: this.areaCode,
+                        phoneNumber: this.phoneNumber,
+                        password: this.password
+                    })
+                    .then((docRef) => {
+                        console.log("Document written with ID: ", docRef.id);
+                    })
+                    .catch((error) => {
+                        console.error("Error adding document: ", error);
+                    });
                 })
-                .then((docRef) => {
-                    console.log("Document written with ID: ", docRef.id);
+                .catch((error) => {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    console.error("Error creating user:", errorMessage);
                 });
             };
+            
         </script>
         <!-- add this just before body closing tag-->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>

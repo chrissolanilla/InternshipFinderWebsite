@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <link rel="icon" href="/art/ezFavi.png">
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>Login</title>
+    </head>
+    <body>
+        <!--Start of body, putting nav bar first-->
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="home.html">
+            <img src="/art/ezSVG.svg" alt="Easy Intern" height="30" class="d-incline-block align-top">
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="home.html">Home</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Register</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="login.html">Login</a>
+                    </li>
+                    <!-- Add more links as needed -->
+                </ul>
+            </div>
+        </nav>
+        <!--if we make a change to this nav bar we have to copy and paste it to all other pages, this is what frameworks like react and vue solve-->
+        <button id="logout" name="logout" class="btn btn-primary">Log Out</button>
+        <!-- The core Firebase JS SDK is always required and must be listed first -->
+       <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+       <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+       <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+        <!--firebase config scripts-->
+                
+        <script>
+            var firebaseConfig = {
+                apiKey: "AIzaSyD3uOK9dhNN_yV9Src3FHQoKFPIuqxzu8g",
+                authDomain: "easy-intern.firebaseapp.com",
+                projectId: "easy-intern",
+                storageBucket: "easy-intern.appspot.com",
+                messagingSenderId: "1032116527504",
+                appId: "1:1032116527504:web:7bb7fab99a11d5fae29315",
+                measurementId: "G-XMR4VMND5T"
+            };
+             // Initialize Firebase
+            const firebaseApp = firebase.initializeApp(firebaseConfig);
+            const db = firebaseApp.firestore();
+            const auth = firebaseApp.auth();
+        </script>
+               
+
+        <div id="login_div" class="main-div">
+            <input type="email" id="email_field" placeholder="email">
+            <input type="password" id="password_field" placeholder="password">
+            <button onclick="login()">Login</button>
+        </div>
+        <script>
+            function login() {
+                var userEmail = document.getElementById("email_field").value;
+                var userPass = document.getElementById("password_field").value;
+        
+                firebase.auth().signInWithEmailAndPassword(userEmail, userPass).catch(function(error) {
+                    var errorCode = error.code;
+                    var errorMessage = error.message;
+                    window.alert("Error: " + errorMessage);
+                });
+            }
+            function logout() {
+                firebase.auth().signOut().then(() => {
+                    alert("You have been logged out");
+                }).catch((error) => {
+                    alert("Error: " + error.message);
+                });
+            }
+        
+        
+            firebase.auth().onAuthStateChanged(function(user) {
+                if (user) {
+                    document.getElementById("login_div").style.display = "none";
+                    if (!user.emailVerified) {
+                        user.sendEmailVerification().then(function() {
+                            // Email Verification sent!
+                            // ...
+                        });
+                    }
+                } else {
+                    document.getElementById("login_div").style.display = "block";
+                }
+            });
+
+            document.getElementById("logout").addEventListener("click", logout);
+        </script>
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    </body>
+</html>
