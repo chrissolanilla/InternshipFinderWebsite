@@ -6,36 +6,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <style> 
-        h1{
-          color: #ae5130;
-          font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-          font-weight: 300;
-        }
-        
-        p{
-        color: black;
-        font-size: medium;
-        font-weight: 600;
-        }
-
-        body {
-        text-align: center;
-        }
-        .test{
-          background-color: aqua;
-          width: 50vw;
-          display: inline-block;
-          margin: 0 auto;
-          padding-left:2.1vw;
-          padding-right: 2.1vw;
-        }
-        hr{
-          color:black;
-          border-bottom:solid;
-        }
-
-    </style>
+    <link rel="script" href="homeScripts/animation.js">
+    <link rel="stylesheet" href="/homeStyles/styles.css">
     <title>Home</title>
   </head>
   <body>
@@ -66,14 +38,15 @@
   
    <h1>Need an internship?</h1> 
    <h2>Register today to apply hundreds of companies in just minutes</h2>
-
-    <h3>Start your Internship Journey Today!</h3>
-    <hr>
+  <div class="start">
+    <h3 style="color:white;">Start your Internship Journey Today!!</h3>
+    <br>
     <!--Button Code-->
     <!--Stylizing the button, the first color is the background color and the second is the text color-->
-    <button id="redirectButton" style="background-color: black; color: white; border: none; padding: 10px 20px; border-radius: 5px; font-family: Arial, sans-serif; border-color: blue;">Sign Up Today</button>
+    <button id="redirectButton" style="background-color: white; color: black; border: none; padding: 10px 20px; border-radius: 5px; font-family: Arial, sans-serif; border-color: blue;">Sign Up Today</button>
 
-
+  </div>
+    
     <script>
       document.getElementById("redirectButton").addEventListener("click", function() {
         window.location.href = "index.html";
@@ -101,106 +74,8 @@
       <div id="movingText2">Adam & Eve</div>
       <div id="movingText3">Moby Huge Near Me</div>
     </div>
-    <style>
-      #container {
-        position: relative; /* Allow for absolute positioning within the container */
-        width: 600px; /* Define the width of the container */
-        height: 600px; /* Define the height of the container */
-        border: 2px solid black; /* Add a border to the container */
-        margin: 0 auto; /* Center the container */
-        overflow:hidden; /* Hide content that goes outside the container */
-    }
-    
-      #movingText1 {
-      position: absolute;
-      color: red;
-      white-space: nowrap;
-    }
-    
-      #movingText2 {
-      position: absolute;
-      color: blue;
-      white-space: nowrap;
-    } 
 
-    #movingText3 {
-      position: absolute;
-      color: green;
-      white-space: nowrap;
-    } 
-    
-    </style>
-    <script>
-      const movingTexts = [
-        {
-          element: document.querySelector("#movingText1"),
-          x: 0,
-          y: 0,
-          dx: 2,
-          dy: 2,
-        },
-        {
-          element: document.querySelector("#movingText2"),
-          x: 100,
-          y: 100,
-          dx: 3,
-          dy: 3,
-        },
-        {
-          element: document.querySelector("#movingText3"),
-          x: 200,
-          y: 200,
-          dx: 4,
-          dy: 4,
-        },
-      ];
-      const container = document.querySelector("#container");
-    
-      function randomColor() {
-        let colors = ["red", "blue", "green", "yellow", "orange", "purple"];
-        return colors[Math.floor(Math.random() * colors.length)];
-      }
-    
-      function moveText() {
-        const containerWidth = container.offsetWidth;
-        const containerHeight = container.offsetHeight;
-    
-        movingTexts.forEach((movingText) => {
-          const textWidth = movingText.element.offsetWidth;
-          const textHeight = movingText.element.offsetHeight;
-    
-          if (
-            movingText.x + movingText.dx > containerWidth - textWidth ||
-            movingText.x + movingText.dx < 0
-          ) {
-            movingText.dx = -movingText.dx;
-          }
-          if (
-            movingText.y + movingText.dy > containerHeight - textHeight ||
-            movingText.y + movingText.dy < 0
-          ) {
-            movingText.dy = -movingText.dy;
-          }
-    
-          // If the text is in the corner, change the color
-          if (
-            (movingText.x === 0 && movingText.y === 0) ||
-            (movingText.x >= containerWidth - textWidth &&
-              movingText.y >= containerHeight - textHeight)
-          ) {
-            movingText.element.style.color = randomColor();
-          }
-    
-          movingText.x += movingText.dx;
-          movingText.y += movingText.dy;
-    
-          movingText.element.style.left = movingText.x + "px";
-          movingText.element.style.top = movingText.y + "px";
-        });
-      }
-    
-      setInterval(moveText, 10);
-    </script>
+    <script src="/homeScripts/animation.js"> </script>
     
     <!--end of silly stuff-->
 

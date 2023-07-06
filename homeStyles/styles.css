@@ -1,30 +1,32 @@
-h1, h2 {
-    color:red;
+h1{
+    color: #ae5130;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 300;
+  }
+  
+  p{
+  color: black;
+  font-size: medium;
+  font-weight: 600;
+  }
 
-}
+  body {
+  text-align: center;
+  }
+  .test{
+    background-color: aqua;
+    width: 50vw;
+    display: inline-block;
+    margin: 0 auto;
+    padding-left:2.1vw;
+    padding-right: 2.1vw;
+  }
+  hr{
+    color:black;
+    border-bottom:solid;
+  }
 
-.red{
-    color: blue;
-}
-#red{
-    color:brown;
-}
-/*this only affects the color for zombo.com*/
-a[href^="https:zombo.com"]{
-    color:green;
-}
-/*you can also use * to select every element!!!!*/
-
-/* gets all paragraphs in footer tags*/
-footer p{
-    color:aqua;
-}
-/*get any tag that is an adjacent sibling of h2 p */
-h2 ~ p{
-    color:blueviolet;
-}
-
-#container {
+  #container {
     position: relative; /* Allow for absolute positioning within the container */
     width: 600px; /* Define the width of the container */
     height: 600px; /* Define the height of the container */
@@ -51,4 +53,10 @@ h2 ~ p{
   white-space: nowrap;
 } 
 
-
+.start {
+    background-color: black;
+    width: 100vw;
+    margin: 0 auto;
+    padding-bottom: 2vw;
+    padding-top: 1.7vw;
+}
