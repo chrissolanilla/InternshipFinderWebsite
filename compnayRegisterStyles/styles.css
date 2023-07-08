@@ -1,0 +1,14 @@
+.footerLinks{
+    background-color: rgb(221, 221, 221);
+    border: 1px solid black;
+    margin: 1rem;
+    padding: 0.5rem 0.5rem;
+    text-align: center;
+  }
+  .bar{
+    display: inline-block;
+    height: 15px;
+    margin: 0 15px;
+    width: 2px;
+    background-color: #313131;
+  }

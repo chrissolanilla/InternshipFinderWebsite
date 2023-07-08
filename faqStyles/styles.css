@@ -1,0 +1,16 @@
+body {
+    text-align: center;
+}
+h1 {
+    font-size: 4em;
+}
+.bulletPoints {
+    width: 60vw;
+    margin:0 auto;
+}
+.bulletPoints p{
+    font-size: 1.15em;
+}
+summary {
+    font-size: 2.15em;
+}

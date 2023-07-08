@@ -30,54 +30,91 @@
           <li class="nav-item">
             <a class="nav-link" href="login.html">Login</a>
           </li>
+          <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact Us</a>
+            </li>
+          <li class="nav-item">
+              <a class="nav-link" href="faq.html">FAQ</a>
+            </li>
           <!-- Add more links as needed -->
         </ul>
       </div>
     </nav>
     <!--if we make a change to this nav bar we have to copy and paste it to all other pages, this is what frameworks like react and vue solve-->
-  
-   <h1>Need an internship?</h1> 
+    <section class="hero bg-primary text-white text-center">
+  <div class="needInternship">
+    
+    <h1>Need an internship?</h1> 
+    
+  </div>
    <h2>Register today to apply hundreds of companies in just minutes</h2>
+    </section>
   <div class="start">
     <h3 style="color:white;">Start your Internship Journey Today!!</h3>
     <br>
     <!--Button Code-->
     <!--Stylizing the button, the first color is the background color and the second is the text color-->
-    <button id="redirectButton" style="background-color: white; color: black; border: none; padding: 10px 20px; border-radius: 5px; font-family: Arial, sans-serif; border-color: blue;">Sign Up Today</button>
-
+    <button id="redirectButton" class="btn btn-light btn-lg">Sign Up Today</button>
   </div>
-    
     <script>
       document.getElementById("redirectButton").addEventListener("click", function() {
         window.location.href = "index.html";
       });
+
     </script>
-    <div>
-      <h3>We Work with different companies in a variety of different industrys</h3>
-      <h4>While giving you the best possible odds of getting an internship in your chosen filed by showing the real you to employers</h4>
+    <div class="weWork">
+      <div class="workText">
+        <h3>We Work with different companies in a variety of different industrys</h3>
+        <h4>While giving you the best possible odds of getting an internship in your chosen filed by showing the real you to employers</h4>
+      </div>
+    </div>
+    <div class="testWrapper">
+      <div class="test">
+        <div class="testText">
+          <h1>What is Easy Intern?</h1>
+          <hr>
+          <p>We know it can be challenging to get a college internship! Having to apply to hundreds of different companies in order to get just one or even two replies. This can be extremely time-consuming, especially when it comes to writing cover letters. Leaving your application to get overlooked by companies. </p>
+          <p>Here at Eazy Intern, we make this process more accessible than ever. Giving potential companies a better and more full representation of themselves so companies can see who you are! With just a straightforward process that takes about 20 minutes, you will be put in front of hundreds of different companies as applicants allowing you to apply to hundreds of internships at once!</p>
+        </div>
+       </div>
     </div>
 
-    <div class="test">
-      <h1>What is Easy Intern?</h1>
-      <hr>
-      <p>We know it can be challenging to get a college internship! Having to apply to hundreds of different companies in order to get just one or even two replies. This can be extremely time-consuming, especially when it comes to writing cover letters. Leaving your application to get overlooked by companies. </p>
-      <p>Here at Eazy Intern, we make this process more accessible than ever. Giving potential companies a better and more full representation of themselves so companies can see who you are! With just a straightforward process that takes about 20 minutes, you will be put in front of hundreds of different companies as applicants allowing you to apply to hundreds of internships at once!</p>
-      
-     </div>
-
-     <div>
-      <h2>Fields We Work With Companys In:</h2>
+    <div class="fieldsCompanies">
+      <h2>Companies We Work With:</h2>
      </div>
      <!--Some silly bouncy text that changes colors like a dvd-->
      <div id="container">
-      <div id="movingText1">Bad Dragon</div>
-      <div id="movingText2">Adam & Eve</div>
-      <div id="movingText3">Moby Huge Near Me</div>
+      <div id="movingText1"><a href="https://rgshealthcare.com/" target="_blank">RGS Healthcare</a></div>
+      <div id="movingText2"><a href="https://www.linkedin.com/company/chonky-raccoon-studios/about/" target="_blank">Chonky Racoon Studios</a></div>
+      <div id="movingText3"><a href="https://www.mdtronics.net/" target="_blank">MD Electronics</a></div>
     </div>
 
     <script src="/homeScripts/animation.js"> </script>
-    
     <!--end of silly stuff-->
+    <div class="leverageWrapper">
+      <div class="leverage">
+        <div class="testText">
+          <h1>Want your company to leverage the power of Eazy Intern?</h1>
+          <hr>
+          <h2>Learn more about how you can easily find the best fit for your positions</h2>
+          <button class="btn btn-light btn-lg"id="companyJoin" >Join Eazy Intern</button>
+          <script>
+            document.getElementById("companyJoin").addEventListener("click", function() {
+              window.location.href = "companyRegister.html";
+            });
+      
+          </script>
+        </div>
+      </div>
+    </div>
 
+    <footer>
+      <div class="footerLinks">
+        <a href="/contact.html">Contact Us</a>
+        <div class="bar"></div>
+        <a href="/faq.html">FAQ</a>
+      </div>
+      <p>&copy; 2023 Easy Intern. All rights reserved.</p>
+    </footer>
   </body>
 </html>

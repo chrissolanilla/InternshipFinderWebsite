@@ -7,20 +7,33 @@ h1{
   p{
   color: black;
   font-size: medium;
-  font-weight: 600;
+  font-weight: 60;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+  }
+
+  h2 , h3, h4{
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    font-weight: 500;
   }
 
   body {
   text-align: center;
   }
+
+  .testWrapper {
+    background-color: rgb(241, 241, 241); 
+    width: 100vw;
+  }
+
   .test{
-    background-color: aqua;
+
     width: 50vw;
-    display: inline-block;
+    display: block;
     margin: 0 auto;
     padding-left:2.1vw;
     padding-right: 2.1vw;
   }
+
   hr{
     color:black;
     border-bottom:solid;
@@ -33,6 +46,11 @@ h1{
     border: 2px solid black; /* Add a border to the container */
     margin: 0 auto; /* Center the container */
     overflow:hidden; /* Hide content that goes outside the container */
+    
+}
+#container a{
+  text-decoration: none !important;
+  color:inherit;
 }
 
   #movingText1 {
@@ -59,4 +77,58 @@ h1{
     margin: 0 auto;
     padding-bottom: 2vw;
     padding-top: 1.7vw;
+}
+
+.weWork {
+  width: 100vw;
+  background-color: aliceblue;
+}
+.workText h3 {
+  width: 40vw;
+  margin: 0 auto;
+  font-size: 2.4em;
+}
+.workText h4{
+  width: 40vw;
+  margin: 0 auto;
+  font-size: 1.9em;
+  padding-top: 20.5px;
+}
+
+.needInternship h1{
+  font-size: 5em;
+}
+
+.testText h1 {
+  font-size: 4em;
+}
+.testText p {
+  font-size:1.15em;
+}
+.footerLinks{
+  background-color: rgb(221, 221, 221);
+  border: 1px solid black;
+  margin: 1rem;
+  padding: 0.5rem 0.5rem;
+  text-align: center;
+}
+.bar{
+  display: inline-block;
+  height: 15px;
+  margin: 0 15px;
+  width: 2px;
+  background-color: #313131;
+}
+
+.leverageWrapper {
+  background-color: grey;
+  padding: 4px;
+  margin: 0 auto;
+  background: radial-gradient(circle at center, rgb(178, 217, 235) 22%, grey 100%);
+}
+
+.leverage{
+  width: 70vw;
+  margin: 0 auto;
+  
 }
