@@ -54,7 +54,7 @@
       <!--if we make a change to this nav bar we have to copy and paste it to all other pages, this is what frameworks like react and vue solve-->
         <h1>Easy Intern Website</h1>
         <!--making a form with petite vue-->
-        <div class="center-div" v-scope="{ firstName: '', lastName: '', email: '', password: '', areaCode:'', phoneNumber:'', submitForm: submitForm}">
+        <div class="center-div" v-scope="{ firstName: '', lastName: '', email: '', password: '', areaCode:'', phoneNumber:'', resume:'', userType:'', submitForm: submitForm}">
             <h2>Register</h2>
             <form @submit.prevent="submitForm">
                 <div class="form-group">
@@ -64,9 +64,15 @@
                     <input type="password" v-model="password" name="password" id="password" placeholder="Password*" class="form-control" required>
                     <input type="number" v-model="areaCode" name="areaCode" id="areaCode" placeholder="Country Code*" class="form-control" required>
                     <input type="tel" v-model="phoneNumber" name="phoneNumber" id="phoneNumber" placeholder="Phone Number*" class="form-control" required>
+                    <label for="resumeForm">Upload Resume:</label>
+                    <input type="file" v-model="resume" name="resume" id="resume" placeholder="Resume*" class="form-control" required>
+                    <label for="userType">Who are you</label>
+                    <select name="userType" v-model="userType" name="userType" id="userType" placeholder="userType" class="form-control" required>Who are you
+                      <option value="student">Student</option>
+                      <option value="company">Employer</option>
+                    </select>
+
                 </div>
-                <label for="resumeForm">Upload Resume:</label>
-                <input type="file" accept="application/pdf" required>
                 
                 <button type="submit" class="btn btn-primary" style="background-color: black; color: white;">Register</button>
                 
@@ -76,6 +82,8 @@
         <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
         <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-storage-compat.js"></script>
+
         <!--firebase config scripts-->
         <script>
             var firebaseConfig = {
@@ -94,41 +102,48 @@
         </script>
        <!--Functionality for the form-->
         <script>
-            const submitForm = function() {
-                console.log(this.firstName, this.lastName, this.email, this.password, this.areaCode, this.phoneNumber);
-                // Create a new user in your 'users' collection
-            
-                // create account with auth app
-                auth.createUserWithEmailAndPassword(this.email, this.password)
-                .then(userCredential => {
-                    // Signed in 
-                    var user = userCredential.user;
-                    db.collection("users").add({
-                        firstName: this.firstName,
-                        lastName: this.lastName,
-                        email: this.email,
-                        areaCode: this.areaCode,
-                        phoneNumber: this.phoneNumber,
-                        password: this.password
-                    })
-                    .then((docRef) => {
-                        console.log("Document written with ID: ", docRef.id);
-                    })
-                    .catch((error) => {
-                        console.error("Error adding document: ", error);
-                    });
+          const submitForm = function() {
+            console.log(this.firstName, this.lastName, this.email, this.password, this.areaCode, this.phoneNumber, this.userType);
+        
+            // Upload resume to Firebase Storage
+            var file = document.getElementById('resume').files[0];  // get the file
+            var storageRef = firebase.storage().ref('resumes/' + file.name);  // create a reference to the file in Firebase Storage
+            storageRef.put(file).then((snapshot) => {
+                console.log('Uploaded a blob or file!');
+            });
+        
+            // Create a new user in your 'users' collection
+            auth.createUserWithEmailAndPassword(this.email, this.password)
+            .then(userCredential => {
+                // Signed in 
+                var user = userCredential.user;
+                db.collection("users").doc(user.uid).set({  // use .doc().set() instead of .add()
+                    firstName: this.firstName,
+                    lastName: this.lastName,
+                    email: this.email,
+                    areaCode: this.areaCode,
+                    phoneNumber: this.phoneNumber,
+                    userType: this.userType  // added userType
+                })
+                .then(() => {
+                    console.log("User document successfully written!");
                 })
                 .catch((error) => {
-                    var errorCode = error.code;
-                    var errorMessage = error.message;
-                    console.error("Error creating user:", errorMessage);
+                    console.error("Error adding document: ", error);
                 });
-            };
-            
+            })
+            .catch((error) => {
+                var errorCode = error.code;
+                var errorMessage = error.message;
+                console.error("Error creating user:", errorMessage);
+            });
+        };
+        
         </script>
         <!-- add this just before body closing tag-->
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+
 
     </body>
 </html>

@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Company Profile</title>
+    <!-- Add Bootstrap CSS -->
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="container">
+        <div class="card mt-5">
+            <div class="card-body">
+                <h1 class="card-title">Welcome to your Company Profile</h1>
+                <h4 class="card-subtitle mb-4 text-muted">About Us:</h4>
+                <p class="card-text" id="about-us">This is a place where you can write about your company...</p>
+                <button class="btn btn-primary" id="edit-about">Edit About Us</button>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h4 class="card-title">Available Internships</h4>
+                <ul class="list-group list-group-flush" id="internships-list">
+                    <!-- Your available internships will be listed here -->
+                </ul>
+                <button class="btn btn-primary mt-3" id="add-internship">Add Internship</button>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h4 class="card-title">Matched Students</h4>
+                <ul class="list-group list-group-flush" id="matches-list">
+                    <!-- Your matched students will be listed here -->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+     <!-- The core Firebase JS SDK is always required and must be listed first -->
+     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+    <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyD3uOK9dhNN_yV9Src3FHQoKFPIuqxzu8g",
+            authDomain: "easy-intern.firebaseapp.com",
+            projectId: "easy-intern",
+            storageBucket: "easy-intern.appspot.com",
+            messagingSenderId: "1032116527504",
+            appId: "1:1032116527504:web:7bb7fab99a11d5fae29315",
+            measurementId: "G-XMR4VMND5T"
+        };
+        
+        // Initialize Firebase
+        const firebaseApp = firebase.initializeApp(firebaseConfig);
+        
+        const db = firebase.firestore();
+    
+        firebase.auth().onAuthStateChanged(function(user) {
+            if (user) {
+                db.collection("companies").doc(user.uid)
+                .onSnapshot(function(doc) {
+                    if (doc.exists) {
+                        // Update the About Us section
+                        $('#about-us').text(doc.data().aboutUs);
+            
+                        // Update the Internships list
+                        $('#internships-list').empty();
+                        if(doc.data().internships) {
+                            doc.data().internships.forEach(function(internship) {
+                                $('#internships-list').append('<li class="list-group-item">' + internship + '</li>');
+                            });
+                        }
+                    }
+                });
+            }
+        });
+        
+        // Add functionality to edit the About Us section
+        // Add functionality to edit the About Us section
+        $('#edit-about').click(function() {
+            var newAboutUs = prompt("Enter your new 'About Us':", "");
+            if (newAboutUs != null) {
+                var user = firebase.auth().currentUser;
+                db.collection("companies").doc(user.uid).set({
+                    aboutUs: newAboutUs
+                }, { merge: true });
+            }
+        });
+
+        // Add functionality to add an internship
+        $('#add-internship').click(function() {
+            var newInternship = prompt("Enter the title of the new internship:", "");
+            if (newInternship != null) {
+                var user = firebase.auth().currentUser;
+                db.collection("companies").doc(user.uid).set({
+                    internships: firebase.firestore.FieldValue.arrayUnion(newInternship)
+                }, { merge: true });
+            }
+        });
+
+    </script>
+    <!-- Add jQuery and Bootstrap JS -->
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+</body>
+
+</html>

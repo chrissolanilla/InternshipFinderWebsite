@@ -67,3 +67,5 @@ const movingTexts = [
   }
 
   setInterval(moveText, 10);
+
+  
