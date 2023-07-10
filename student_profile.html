@@ -10,13 +10,65 @@
 </head>
 
 <body>
+    <!--start of body put the nav bar in -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <a class="navbar-brand" href="home.html">
+            <img src="/art/ezSVG.svg" alt="Easy Intern" height="30" class="d-incline-block align-top">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav">
+                <li class="nav-item active">
+                    <a class="nav-link" href="home.html">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="index.html">Register</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="login.html">Login</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="contact.html">Contact Us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="faq.html">FAQ</a>
+                </li>
+                <!-- Add logout button -->
+                <li class="nav-item">
+                    <button id="logout" name="logout" class="btn btn-primary">Log Out</button>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <script>
+        function logout() {
+            firebase.auth().signOut().then(() => {
+                alert("You have been logged out");
+            }).catch((error) => {
+                alert("Error: " + error.message);
+            });
+        }
+        document.getElementById("logout").addEventListener("click", logout);
+        </script>
+    <!--end of nav bar code-->
     <div class="container">
         <div class="card mt-5">
             <div class="card-body">
-                <h1 class="card-title">Welcome to your profile</h1>
+                <h1 class="card-title">Welcome to student your profile</h1>
                 <h4 class="card-subtitle mb-4 text-muted">Bio:</h4>
                 <p class="card-text" id="bio">This is a place where you can write about yourself...</p>
                 <button class="btn btn-primary" id="edit-bio">Edit Bio</button>
+            </div>
+        </div>
+
+        <div class="card mt-5">
+            <div class="card-body">
+                <h4 class="card-title">Your Major and GPA</h4>
+                <p class="card-text" id="major">Major: </p>
+                <p class="card-text" id="gpa">GPA: </p>
+                <button class="btn btn-primary" id="edit-major-gpa">Edit Major and GPA</button>
             </div>
         </div>
 
@@ -29,52 +81,73 @@
             </div>
         </div>
     </div>
+
+    <!-- Add jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
+    <!-- The core Firebase JS SDK is always required and must be listed first -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
+
     <script>
+        var firebaseConfig = {
+            apiKey: "AIzaSyD3uOK9dhNN_yV9Src3FHQoKFPIuqxzu8g",
+            authDomain: "easy-intern.firebaseapp.com",
+            projectId: "easy-intern",
+            storageBucket: "easy-intern.appspot.com",
+            messagingSenderId: "1032116527504",
+            appId: "1:1032116527504:web:7bb7fab99a11d5fae29315",
+            measurementId: "G-XMR4VMND5T"
+        };
+        
+        // Initialize Firebase
+        const firebaseApp = firebase.initializeApp(firebaseConfig);
+        
         const db = firebase.firestore();
     
         firebase.auth().onAuthStateChanged(function(user) {
             if (user) {
-                db.collection("companies").doc(user.uid)
+                db.collection("students").doc(user.uid)
                 .onSnapshot(function(doc) {
                     if (doc.exists) {
-                        // Update the About Us section
-                        $('#about-us').text(doc.data().aboutUs);
-    
-                        // Update the Internships list
-                        $('#internships-list').empty();
-                        doc.data().internships.forEach(function(internship) {
-                            $('#internships-list').append('<li class="list-group-item">' + internship + '</li>');
-                        });
+                        // Update the bio
+                        $('#bio').text(doc.data().bio);
+                        // Update the major and GPA
+                        $('#major').text("Major: " + doc.data().major);
+                        $('#gpa').text("GPA: " + doc.data().gpa);
                     }
                 });
             }
         });
-    
-        // Add functionality to edit the About Us section
-        $('#edit-about').click(function() {
-            var newAboutUs = prompt("Enter your new 'About Us':", "");
-            if (newAboutUs != null) {
+
+        // Add functionality to edit the Bio section
+        $('#edit-bio').click(function() {
+            var newBio = prompt("Enter your new Bio:", "");
+            if (newBio != null) {
                 var user = firebase.auth().currentUser;
-                db.collection("companies").doc(user.uid).update({
-                    aboutUs: newAboutUs
-                });
+                db.collection("students").doc(user.uid).set({
+                    bio: newBio
+                }, { merge: true });
             }
         });
-    
-        // Add functionality to add an internship
-        $('#add-internship').click(function() {
-            var newInternship = prompt("Enter the title of the new internship:", "");
-            if (newInternship != null) {
+
+        // Add functionality to edit the Major and GPA
+        $('#edit-major-gpa').click(function() {
+            var newMajor = prompt("Enter your new Major:", "");
+            var newGPA = prompt("Enter your new GPA:", "");
+            if (newMajor != null && newGPA != null) {
                 var user = firebase.auth().currentUser;
-                db.collection("companies").doc(user.uid).update({
-                    internships: firebase.firestore.FieldValue.arrayUnion(newInternship)
-                });
+                db.collection("students").doc(user.uid).set({
+                    major: newMajor,
+                    gpa: parseFloat(newGPA)
+                }, { merge: true });
             }
         });
+
     </script>
-    <!-- Add jQuery and Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+
 </body>
 
 </html>

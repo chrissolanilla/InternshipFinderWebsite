@@ -107,7 +107,35 @@
         </div>
       </div>
     </div>
+    <button id="secret" onClick="migrateData()">One time run</button>
+    <script>
+      function migrateData() {
+        // Assuming db is your Firestore database instance
+        db.collection('users').get().then((querySnapshot) => {
+            querySnapshot.forEach((doc) => {
+                var userData = doc.data();
+            
+                if(userData.userType === "student") {
+                    // Create new student document
+                    var newStudentData = {
+                        major: "Unspecified",  // Set to some default value
+                        gpa: 0,  // Set to some default value
+                        userId: doc.id
+                    };
 
+                    db.collection("students").doc(doc.id).set(newStudentData)
+                        .then(() => {
+                            console.log("Student written with ID: ", doc.id);
+                        })
+                        .catch((error) => {
+                            console.error("Error adding student: ", error);
+                        });
+                }
+            });
+        });
+        console.log("alright we did it")
+    }
+    </script>
     <footer>
       <div class="footerLinks">
         <a href="/contact.html">Contact Us</a>
