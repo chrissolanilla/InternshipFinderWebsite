@@ -91,6 +91,43 @@
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore-compat.js"></script>
     <script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-auth-compat.js"></script>
 
+    <!-- ...new input fields... -->
+    <input type="text" class="form-control" placeholder="University" id="university">
+    <input type="number" class="form-control" placeholder="What year of college are you" id="college_year">
+    <input type="file" class="form-control" id="transcript_upload">
+    <input type="text" class="form-control" placeholder="Student ID" id="student_id">
+    <input type="file" class="form-control" id="resume_upload">
+    
+    <!-- personality test input could be a link to an external test -->
+    <input type="url" class="form-control" placeholder="Link to Personality Test Result" id="personality_test">
+    
+    <input type="text" class="form-control" placeholder="Three strong suits" id="strong_suits">
+    <input type="text" class="form-control" placeholder="Three things you're working to improve" id="things_to_improve">
+    <input type="text" class="form-control" placeholder="Field you're looking to work in" id="work_field">
+    <input type="text" class="form-control" placeholder="Degrees" id="degrees">
+    
+    <!-- Radio buttons for high school diploma -->
+    <div>
+      <label>High School Diploma:</label>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="diplomaRadios" id="diplomaYes" value="yes">
+        <label class="form-check-label" for="diplomaYes">Yes</label>
+      </div>
+      <div class="form-check form-check-inline">
+        <input class="form-check-input" type="radio" name="diplomaRadios" id="diplomaNo" value="no">
+        <label class="form-check-label" for="diplomaNo">No</label>
+      </div>
+    </div>
+    
+    <input type="number" class="form-control" placeholder="What year in college are you" id="college_year_2">
+    
+    <!-- Video Upload -->
+    <input type="file" class="form-control" accept="video/*" id="about_me_video">
+    
+    <button type="button" class="btn btn-primary mt-3" onclick="submitForm()">Submit</button>
+  </form>
+</div>
+
     <script>
         var firebaseConfig = {
             apiKey: "AIzaSyD3uOK9dhNN_yV9Src3FHQoKFPIuqxzu8g",
